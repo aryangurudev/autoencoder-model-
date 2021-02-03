@@ -1,0 +1,34 @@
+# train autoencoder for classification with no compression in the bottleneck layer
+from sklearn.datasets import make_classification
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.model_selection import train_test_split
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Input
+from tensorflow.keras.layers import Dense
+from tensorflow.keras.layers import LeakyReLU
+from tensorflow.keras.layers import BatchNormalization
+from tensorflow.keras.utils import plot_model
+from matplotlib import pyplot
+import os
+import scipy
+import numpy
+# define dataset
+
+X, y = make_classification(n_samples=1000, n_features=100, n_informative=10, n_redundant=90, random_state=1)
+print(X.shape) 
+dataDir = "/Users/aryangurudev/Desktop/Complete repiratory project/all/"
+mats = []
+for file in os.listdir( dataDir ) :
+    mats.append( scipy.io.loadmat( dataDir+file ) )
+z=[]
+for t in mats:
+    z.append(t['val'])
+print (type(z))
+x=numpy.array(z)
+print(type(x))
+print(x.shape)
+print(x)
+newarr=x.reshape(-1)
+print(newarr.shape)
+new=newarr.reshape(175,21600)
+print(new)
